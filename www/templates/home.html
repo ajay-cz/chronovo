@@ -1,0 +1,83 @@
+<ion-view title="Chronovo" view-title="Chronovo">
+    <ion-tabs class="tabs-stable tabs-icon-top">
+        <ion-tab title="Appointments" icon="ion-ios7-calendar">
+            <ion-pane>
+                <ion-content padding="true" scroll="false" class="has-header">
+                    <form>
+                        <div class="row">
+                            <button class="button button-icon" ng-click="showNewAppointmentModal()">
+                                <i class="icon ion-plus"></i>
+                            </button>
+                            <div class="col">
+                                <label class="item item-select item-input" name="date_selector">
+                                    <span class="input-label">Date Selector</span>
+                                    <select id="appt_date_select" name="appt_date_select">
+                                        <option id="today">Today</option>
+                                        <option id="tomorrow">Tomorrow</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label class="item item-input" name="appt_filter">
+                                    <span class="input-label">Filter</span>
+                                    <input type="text" placeholder="Type to filter ..">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="spacer" style="width: 0px; height: 10px;"></div>
+                        <div class="list card" ng-repeat="app in appointments" ng-click="chooseApp(app)">
+                            <div class="item item-divider"> {{ app.date| date: 'MM/dd/yyyy'}}</div>
+                            <div class="item item-avatar">
+                                <h2>{{ app.patient }} <span ng-show="app.purpose != null">({{ app.purpose }})</span></h2>
+                                <p>{{ app.category }}</p>
+                            </div>
+                        </div>
+                    </form>
+                </ion-content>
+            </ion-pane>
+        </ion-tab>
+        <ion-tab title="Patients" icon="ion-person">
+            <ion-pane>
+                <ion-content padding="true" scroll="false" class="has-header">
+                    <form>
+                        <div class="row">
+                            <button class="button button-icon" ng-click="showNewPatientModal()">
+                                <i class="icon ion-plus"></i>
+                            </button>
+                            <label class="row item item-input item-floating-label" name="patients_filter">
+                                <span class="input-label">Type to Filter ...</span>
+                                <input type="text" placeholder="Type to Filter ...">
+                            </label>
+                        </div>
+                    </form>
+                    <ion-list>
+                        <ion-item ng-repeat="patient in patients" class="card" href="#/app/patientinfo/{{patient.id}}">
+                            <h2>{{patient.first_name}} {{patient.last_name}}</h2>
+                            <span>SINCE {{patient.joined_on | date: 'dd/MM/yyyy'}}</span>
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-pane>
+        </ion-tab>
+        <ion-tab title="Billing" icon="ion-calculator">
+            <ion-pane>
+                <ion-content padding="true" scroll="false" class="has-header">
+                    <form>
+                        <label class="item item-input">
+                            <span class="input-label">Billing Info</span>
+                            <select id="billing_date_select" name="billing_date_select">
+                                <option id="today">Today</option>
+                                <option id="tomorrow">Tomorrow</option>
+                            </select>
+                        </label>
+                    </form>
+                    <ion-list>
+                        <ion-item>Item 1</ion-item>
+                        <ion-item>Item 2</ion-item>
+                        <ion-item>Item 3</ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-pane>
+        </ion-tab>
+    </ion-tabs>
+</ion-view>

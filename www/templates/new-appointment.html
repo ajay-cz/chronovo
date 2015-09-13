@@ -1,0 +1,48 @@
+<ion-modal-view style="width: 90%; height: 90%; top: 5%; left: 5%; right: 5%; bottom: 5%;">
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">New Appointment</h1>
+    </ion-header-bar>
+    <ion-content>
+        <form name="apptform">
+            <div class="list padding">
+                <div class="card">
+                    <div>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Visit Date</span>
+                            <input type="date" placeholder="{{today| date: 'MM/dd/yyyy' }}" ng-model="appointment.date" ng-required="true">
+                        </label>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Patient</span>
+                            <input type="text" placeholder="Enter Patient Name" ng-model="appointment.patient" ng-required="true">
+                        </label>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Purpose</span>
+                            <input type="text" requ placeholder="E.g. Regular check up" ng-model="appointment.purpose" ng-required="true">
+                        </label>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Category</span>
+                            <input type="text" placeholder="Optional" ng-model="appointment.category">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="item padding">
+                <button class="button icon-right ion-close-circled" ng-click="closeNewAppointmentModal()"> Cancel</button>
+                <button type="submit" class="button icon-right ion-checkmark-circled" ng-click="saveNewAppointment(appointment)" ng-disabled="apptform.$invalid"> Save</button>
+            </div>
+        </form>
+    <ion-content>
+
+</ion-modal-view>
