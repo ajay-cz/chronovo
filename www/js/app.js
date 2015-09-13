@@ -36,8 +36,16 @@ angular.module('app', ['ionic', 'starter.controllers', 'starter.services', 'star
                 controller: 'AppCtrl'
             })
 
+            // setup an abstract state for the tabs directive
+            .state('tab', {
+                url: "/tab",
+                abstract: true,
+                templateUrl: "templates/tabs.html"
+            })
+
             .state('app.home', {
                 url: '/home',
+                cache: false,
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/home.html',
