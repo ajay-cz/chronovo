@@ -10,14 +10,13 @@
     <!--</div>-->
     <!--</div>-->
     <!--<ion-content class="padding">-->
-        <ion-tabs class="tabs-striped tabs-background-positive tabs-color-light">
-
-            <ion-tab title="Home" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
+        <ion-tabs class="tabs-striped tabs-icon-top tabs-background-stable">
+            <ion-tab title="Patient Info" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
                 <ion-pane>
                     <ion-content padding="true" scroll="false" class="has-header">
                         <div class="card">
                             <div class="item item-text-wrap">
-                                <label class="item item-input item-stacked-label">
+                                <label class="item item-input">
                                     <span class="input-label">First Name</span>
                                     <input type="text" placeholder="First Name" ng-model="patientInfo.first_name">
                                 </label>
@@ -25,7 +24,7 @@
                         </div>
                         <div class="card">
                             <div class="item item-text-wrap">
-                                <label class="item item-input item-stacked-label">
+                                <label class="item item-input">
                                     <span class="input-label">Last Name</span>
                                     <input type="text" placeholder="Last Name" ng-model="patientInfo.last_name">
                                 </label>
@@ -33,8 +32,22 @@
                         </div>
                         <div class="card">
                             <div class="item item-text-wrap">
-                                <label class="item item-input item-stacked-label">
+                                <label class="item item-input">
                                     <span class="input-label">Joined Since {{patientInfo.joined_on | date: 'dd/MM/yyyy'}}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                <label class="item item-input">
+                                    <div class="col">
+                                        <span class="input-label">Address </span>
+                                        <input type="text" placeholder="Address" ng-model="patientInfo.address">
+                                    </div>
+                                    <div class="col">
+                                        <span class="input-label">Phone </span>
+                                        <input type="text" placeholder="Phone" ng-model="patientInfo.phone">
+                                    </div>
                                 </label>
                             </div>
                         </div>
@@ -43,8 +56,7 @@
                 <!-- Tab 1 content -->
 
             </ion-tab>
-
-            <ion-tab title="About" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+            <ion-tab title="Visit History" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
                 <!-- Tab 2 content -->
             </ion-tab>
 

@@ -59,7 +59,7 @@ angular.module('starter.controllers', ['ionic.utils'])
         $scope.appointments = AppointmentsFactory.all();
 
         $scope.chooseApp = function(app) {
-            alert(app['id']);
+
         }
 
         $scope.today = new Date();
@@ -71,7 +71,7 @@ angular.module('starter.controllers', ['ionic.utils'])
             animation: 'slide-in-up'
         }).then(function(modal) {
             $scope.appointmentModal = modal;
-            $scope.appointment = "";
+            $scope.appointment = {};
         });
         //Show New appointment Modal
         $scope.showNewAppointmentModal = function() {
@@ -95,6 +95,14 @@ angular.module('starter.controllers', ['ionic.utils'])
                 $scope.closeNewAppointmentModal();
             }
         }
+
+//        $scope.onSelectPatient = function(patient) {
+//            console.log(patient.id);
+//        }
+//
+//        $scope.patientSearch = function(data) {
+//            alert($scope.appointment.patient);
+//        }
 
         // Patients
         $scope.patients = PatientsFactory.all();

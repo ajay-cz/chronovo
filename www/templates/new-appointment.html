@@ -17,7 +17,16 @@
                     <div>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Patient</span>
-                            <input type="text" placeholder="Enter Patient Name" ng-model="appointment.patient" ng-required="true">
+                            <select ng-model="appointment.patient" placeholder="Enter Patient Name" ng-required="true">
+                                <option value="">Enter Patient Name</option>
+                                <option ng-repeat="patient in patients" value="{{patient}}">{{patient.first_name}} {{patient.last_name}}</option>
+                            </select>
+                            <!--<button class="button button-icon" ng-click="showNewPatientModal()">-->
+                                <!--<i class="icon ion-plus"></i>-->
+                            <!--</button>-->
+                            <!--<datalist id="patients">-->
+                                <!--<option ng-repeat="patient in patients" id="{{patient.id}}" value="{{patient.first_name}} {{patient.last_name}}"></option>-->
+                            <!--</datalist>-->
                         </label>
                     </div>
                 </div>
@@ -25,7 +34,7 @@
                     <div>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Purpose</span>
-                            <input type="text" requ placeholder="E.g. Regular check up" ng-model="appointment.purpose" ng-required="true">
+                            <input type="text" placeholder="E.g. Regular check up" ng-model="appointment.purpose" ng-required="true">
                         </label>
                     </div>
                 </div>
