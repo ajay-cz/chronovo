@@ -44,7 +44,7 @@ angular.module('starter.controllers', ['ionic.utils'])
         var keepGoing = true;
         angular.forEach(PatientsFactory.all(), function (value, key) {
             if (keepGoing) {
-                if (value.id.toString() === patientId) {
+                if (value && value.id.toString() === patientId) {
                     keepGoing = false;
                     $scope.patientInfo = value;
                     PatientsFactory.setLastActiveIndex(key);
@@ -76,7 +76,7 @@ angular.module('starter.controllers', ['ionic.utils'])
         var findPatientInfoFromId = function(patientId) {
             angular.forEach(PatientsFactory.all(), function (value, key) {
                 if (pkeepGoing) {
-                    if (value.id.toString() === patientId) {
+                    if (value && value.id.toString() === patientId) {
                         pkeepGoing = false;
                         $scope.patientInfo = value;
                         PatientsFactory.setLastActiveIndex(key);
@@ -91,7 +91,7 @@ angular.module('starter.controllers', ['ionic.utils'])
 
         angular.forEach(appointments, function (value, key) {
             if (keepGoing) {
-                if (value.id.toString() === appointmentId) {
+                if (value && value.id.toString() === appointmentId) {
                     keepGoing = false;
                     $scope.appointmentInfo = value;
                     console.log(value);
@@ -155,7 +155,7 @@ angular.module('starter.controllers', ['ionic.utils'])
         var findPatientInfoFromId = function(patientId) {
             angular.forEach(PatientsFactory.all(), function (value, key) {
                 if (keepGoing) {
-                    if (value.id.toString() === patientId) {
+                    if (value && value.id.toString() === patientId) {
                         keepGoing = false;
                         $scope.patientInfo = value;
                     }
