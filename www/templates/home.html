@@ -25,13 +25,15 @@
                             </div>
                         </div>
                         <div class="spacer" style="width: 0px; height: 20px;"></div>
-                        <div class="list card" ng-repeat="app in appointments" ng-click="chooseApp(app)">
-                            <div class="item item-divider"> {{ app.date| date: 'MM/dd/yyyy'}}</div>
-                            <div class="item item-avatar">
-                                <h2>{{ app.patient.first_name }} <span ng-show="app.purpose != null">({{ app.purpose }})</span></h2>
-                                <p>{{ app.category }}</p>
-                            </div>
-                        </div>
+                        <ion-list>
+                            <ion-item ng-repeat="app in appointments" class="list card" href="#/app/appointment/{{app.id}}">
+                                <div class="item item-divider"> {{ app.date| date: 'MM/dd/yyyy'}}</div>
+                                <div class="item item-avatar">
+                                    <h2>{{ patientInfoMap[app.patientId]['first_name'] }} <span ng-show="app.purpose != null">({{ app.purpose }})</span></h2>
+                                    <p>{{ app.category }}</p>
+                                </div>
+                            </ion-item>
+                        </ion-list>
                     </form>
                 </ion-content>
             </ion-pane>

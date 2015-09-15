@@ -67,6 +67,17 @@ angular.module('app', ['ionic', 'starter.controllers', 'starter.services', 'star
                 }
             })
 
+            .state('app.appointmentInfo', {
+                cache: false,
+                url: '/appointment/:appointmentId',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/appointment-details.html',
+                        controller: 'AppointmentDetailsCtrl'
+                    }
+                }
+            })
+
             .state('login', {
                 url: '/login',
                 templateUrl: 'templates/login.html',

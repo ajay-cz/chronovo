@@ -15,14 +15,20 @@ angular.module('starter.factories', [])
             save: function (appointments) {
                 window.localStorage['appointments'] = angular.toJson(appointments);
             },
-            newAppointment: function (guid, Date, Patient, Purpose, Category) {
+            newAppointment: function (guid, Date, PatientId, Purpose, Category) {
                 // Add a new Appointmnet
                 return {
                     id: guid,
                     date: Date,
-                    patient: Patient,
+                    patientId: PatientId,
                     purpose: Purpose,
-                    category: Category
+                    category: Category,
+                    status: [],
+                    billing: '',
+                    other_notes: '',
+                    clinical_notes: '',
+                    medications: '',
+                    followup_date: ''
                 };
             },
             getLastActiveIndex: function () {

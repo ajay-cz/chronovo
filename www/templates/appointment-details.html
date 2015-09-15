@@ -1,65 +1,148 @@
-<ion-view title="{{patientInfo.first_name}} {{patientInfo.last_name}}"
-          view-title="{{patientInfo.first_name}} {{patientInfo.last_name}}">
-    <!--<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">-->
-    <!--<div class="tabs">-->
-    <!--<a class="tab-item active" href="#"> Personal Info</a>-->
-    <!--<a class="tab-item" href="#">Visit History</a>-->
-    <!--</div>-->
-    <!--<div>-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--<ion-content class="padding">-->
-    <ion-tabs class="tabs-striped tabs-icon-top tabs-background-positive tabs-color-light">
-        <ion-tab title="Patient Info" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
+<ion-view title="Visit on {{appointmentInfo.date | date: 'dd/MM/yyyy'}}, {{patientInfoMap[appointmentInfo.patientId]['first_name']}} {{patientInfoMap[appointmentInfo.patientId]['last_name']}}"
+          view-title="Visit on {{appointmentInfo.date | date: 'dd/MM/yyyy'}}, {{patientInfoMap[appointmentInfo.patientId]['first_name']}} {{patientInfoMap[appointmentInfo.patientId]['last_name']}}">
+    <ion-tabs class="tabs-striped tabs-icon-top tabs-background-stable">
+        <ion-tab title="Patient" icon-on="ion-ios-person" icon-off="ion-ios-person-outline">
             <ion-pane>
-                <ion-content padding="true" scroll="false" class="has-header">
-                    <div class="card">
-                        <div class="item item-text-wrap">
-                            <label class="item item-input">
-                                <span class="input-label">First Name</span>
-                                <input type="text" placeholder="First Name" ng-model="patientInfo.first_name">
-                            </label>
+                <ion-content padding="true" scroll="true" class="has-header">
+                    <form name="patientForm" ng-submit="inlinePatientInfoSave(patientInfo)">
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                <label class="item item-input">
+                                    <span class="input-label">First Name</span>
+                                    <input type="text" placeholder="First Name" ng-model="patientInfo.first_name">
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="item item-text-wrap">
-                            <label class="item item-input">
-                                <span class="input-label">Last Name</span>
-                                <input type="text" placeholder="Last Name" ng-model="patientInfo.last_name">
-                            </label>
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                <label class="item item-input">
+                                    <span class="input-label">Last Name</span>
+                                    <input type="text" placeholder="Last Name" ng-model="patientInfo.last_name"}">
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="item item-text-wrap">
-                            <label class="item item-input">
-                                <span class="input-label">Joined Since {{patientInfo.joined_on | date: 'dd/MM/yyyy'}}</span>
-                            </label>
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                <label class="item item-input">
+                                    <span class="input-label">Joined Since {{patientInfo.joined_on | date: 'dd/MM/yyyy'}}</span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="item item-text-wrap">
-                            <label class="item item-input">
-                                <div class="col">
-                                    <span class="input-label">Address </span>
-                                    <input type="text" placeholder="Address" ng-model="patientInfo.address">
-                                </div>
-                                <div class="col">
-                                    <span class="input-label">Phone </span>
-                                    <input type="text" placeholder="Phone" ng-model="patientInfo.phone">
-                                </div>
-                            </label>
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                <label class="item item-input">
+                                    <div class="col">
+                                        <span class="input-label">Address </span>
+                                        <input type="text" placeholder="Address" ng-model="patientInfo.address">
+                                    </div>
+                                    <div class="col">
+                                        <span class="input-label">Phone </span>
+                                        <input type="text" placeholder="Phone" ng-model="patientInfo.phone">
+                                    </div>
+                                </label>
+                            </div>
                         </div>
-                    </div>
+                        <button type="submit" class="button icon-right ion-checkmark-circled" ng-click="inlinePatientInfoSave(patientInfo)" ng-disabled="patientForm.$invalid"> Save</button>
+                    </form>
                 </ion-content>
             </ion-pane>
             <!-- Tab 1 content -->
-
         </ion-tab>
-        <ion-tab title="Visit History" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
-            <!-- Tab 2 content -->
+        <ion-tab title="Clinical Notes" icon-on="ion-ios-list" icon-off="ion-ios-list-outline">
+            <ion-pane>
+                <ion-content padding="true" scroll="true" class="has-header">
+                    <form name="apptCNoteForm" ng-submit="inlineAppointmnetInfoSave(appointmentInfo)">
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                <label class="item item-input">
+                                    <span class="input-label">Clinical Notes</span>
+                                    <textarea type="text" placeholder="Clinical Notes" ng-model="appointmentInfo.clinical_notes">
+                                    </textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="button icon-right ion-checkmark-circled" ng-click="inlineAppointmnetInfoSave(appointmentInfo)" ng-disabled="apptCNoteForm.$invalid"> Save</button>
+                    </form>
+                </ion-content>
+            </ion-pane>
+        </ion-tab>
+        <ion-tab title="Medications" icon-on="ion-ios-medkit" icon-off="ion-ios-medkit-outline">
+            <ion-pane>
+                <ion-content padding="true" scroll="true" class="has-header">
+                    <form name="apptMedForm" ng-submit="inlineAppointmnetInfoSave(appointmentInfo)">
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                <label class="item item-input">
+                                    <span class="input-label">Medications</span>
+                                    <textarea type="text" placeholder="Medications" ng-model="appointmentInfo.medications">
+                                    </textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="button icon-right ion-checkmark-circled" ng-click="inlineAppointmnetInfoSave(appointmentInfo)" ng-disabled="apptMedForm.$invalid"> Save</button>
+                    </form>
+                </ion-content>
+            </ion-pane>
+        </ion-tab>
+        <ion-tab title="Other Notes" icon-on="ion-ios-book" icon-off="ion-ios-book-outline">
+            <ion-pane>
+                <ion-content padding="true" scroll="true" class="has-header">
+                    <form name="apptONoteForm" ng-submit="inlineAppointmnetInfoSave(appointmentInfo)">
+                        <div class="card">
+                            <div class="item item-text-wrap">
+                                <label class="item item-input">
+                                    <span class="input-label">Other Notes</span>
+                                    <textarea type="text" placeholder="Other Notes" ng-model="appointmentInfo.other_notes">
+                                    </textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="button icon-right ion-checkmark-circled" ng-click="inlineAppointmnetInfoSave(appointmentInfo)" ng-disabled="apptONoteForm.$invalid"> Save</button>
+                    </form>
+                </ion-content>
+            </ion-pane>
+        </ion-tab>
+        <ion-tab title="Dates" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+            <ion-pane>
+                <ion-content padding="true" scroll="true" class="has-header">
+                    <form name="apptNextVisitForm" ng-submit="inlineAppointmnetInfoSave(appointmentInfo)">
+                        <div class="card">
+                            <div class="item item-divider">
+                                This Visit
+                            </div>
+                            <div class="item item-text-wrap list">
+                                <a href="#" class="item item-icon-left">
+                                    Date : {{appointmentInfo.date | date: 'dd/MM/yyyy'}} <br>
+                                    Status : {{appointmentInfo.status[0]}} <br>
+                                    Purpose : {{appointmentInfo.purpose}} <br>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="item item-divider">
+                                Next Visit
+                            </div>
+                            <div class="item item-text-wrap">
+                                <label class="item item-input item-stacked-label">
+                                    <span class="input-label">Next Visit Date</span>
+                                    <input type="date" placeholder="{{today| date: 'MM/dd/yyyy' }}"
+                                           ng-model="appointment.followup_date" ng-required="true">
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="button icon-right ion-checkmark-circled"
+                                ng-click="inlineAppointmnetInfoSave(appointmentInfo)"
+                                ng-disabled="apptNextVisitForm.$invalid"> Save
+                        </button>
+                    </form>
+                </ion-content>
+            </ion-pane>
+        </ion-tab>
+        <ion-tab title="Billing" icon-on="ion-ios-pricetag" icon-off="ion-ios-pricetag-outline">
+            <ion-pane>
+                <ion-content padding="true" scroll="true" class="has-header"></ion-content>
+            </ion-pane>
         </ion-tab>
 
     </ion-tabs>
-    <!--</ion-content>-->
 </ion-view>

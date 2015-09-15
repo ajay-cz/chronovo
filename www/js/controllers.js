@@ -47,9 +47,71 @@ angular.module('starter.controllers', ['ionic.utils'])
                 if (value.id.toString() === patientId) {
                     keepGoing = false;
                     $scope.patientInfo = value;
+                    PatientsFactory.setLastActiveIndex(key);
                 }
             }
         })
+
+        var patients = PatientsFactory.all();
+        $scope.inlinePatientInfoSave = function(patientInfo){
+            var patients_last_index = PatientsFactory.getLastActiveIndex();
+            patients[patients_last_index] = patientInfo;
+            PatientsFactory.save(patients);
+        }
+    })
+
+    .controller('AppointmentDetailsCtrl', function ($scope, $stateParams, $ionicModal, $timeout, uuid2, AppointmentsFactory, PatientsFactory) {
+        var appointmentId = $stateParams.appointmentId;
+        $scope.patientInfo = null;
+
+        $scope.patientInfoMap = {};
+        var generatePatientInfoMap = function (patientId) {
+            angular.forEach(PatientsFactory.all(), function (value, key) {
+                $scope.patientInfoMap[value.id] = value;
+            })
+        }
+        generatePatientInfoMap();
+        var pkeepGoing = true;
+
+        var findPatientInfoFromId = function(patientId) {
+            angular.forEach(PatientsFactory.all(), function (value, key) {
+                if (pkeepGoing) {
+                    if (value.id.toString() === patientId) {
+                        pkeepGoing = false;
+                        $scope.patientInfo = value;
+                        PatientsFactory.setLastActiveIndex(key);
+                    }
+                }
+            })
+        }
+
+        $scope.appointmentInfo = null;
+        var keepGoing = true;
+        var appointments = AppointmentsFactory.all();
+
+        angular.forEach(appointments, function (value, key) {
+            if (keepGoing) {
+                if (value.id.toString() === appointmentId) {
+                    keepGoing = false;
+                    $scope.appointmentInfo = value;
+                    console.log(value);
+                    findPatientInfoFromId($scope.appointmentInfo.patientId);
+                    AppointmentsFactory.setLastActiveIndex(key);
+                }
+            }
+        })
+
+        var patients = PatientsFactory.all();
+        $scope.inlinePatientInfoSave = function(patientInfo){
+            var patients_last_index = PatientsFactory.getLastActiveIndex();
+            patients[patients_last_index] = patientInfo;
+            PatientsFactory.save(patients);
+        }
+
+        $scope.inlineAppointmnetInfoSave = function(appointmentInfo){
+            appointments[AppointmentsFactory.getLastActiveIndex()] = appointmentInfo;
+            AppointmentsFactory.save(appointments);
+        }
     })
 
     .controller('HomeCtrl', function ($scope, $state, $ionicModal, $timeout, uuid2, AppointmentsFactory, PatientsFactory) {
@@ -57,6 +119,14 @@ angular.module('starter.controllers', ['ionic.utils'])
 
         // All Saved appointments
         $scope.appointments = AppointmentsFactory.all();
+
+        $scope.patientInfoMap = {};
+        var generatePatientInfoMap = function (patientId) {
+            angular.forEach(PatientsFactory.all(), function (value, key) {
+                $scope.patientInfoMap[value.id] = value;
+            })
+        }
+        generatePatientInfoMap();
 
         $scope.chooseApp = function(app) {
 
@@ -82,8 +152,19 @@ angular.module('starter.controllers', ['ionic.utils'])
             $scope.appointmentModal.hide();
         }
 
-        var createAppointment = function(Date, Patient, Purpose, Category) {
-            var newAppointment = AppointmentsFactory.newAppointment(uuid2.newguid(), Date, Patient, Purpose, Category);
+        var findPatientInfoFromId = function(patientId) {
+            angular.forEach(PatientsFactory.all(), function (value, key) {
+                if (keepGoing) {
+                    if (value.id.toString() === patientId) {
+                        keepGoing = false;
+                        $scope.patientInfo = value;
+                    }
+                }
+            })
+        }
+
+        var createAppointment = function(Date, PatientId, Purpose, Category) {
+            var newAppointment = AppointmentsFactory.newAppointment(uuid2.newguid(), Date, PatientId, Purpose, Category);
             $scope.appointments.push(newAppointment);
             AppointmentsFactory.save($scope.appointments);
 //            $scope.selectAppointment(newAppointment, $scope.appointments.length-1);
@@ -91,7 +172,7 @@ angular.module('starter.controllers', ['ionic.utils'])
         //Save New appointment and close Modal
         $scope.saveNewAppointment = function(appointment) {
             if (appointment) {
-                createAppointment(appointment.date, appointment.patient, appointment.purpose, appointment.category);
+                createAppointment(appointment.date, appointment.patientId, appointment.purpose, appointment.category);
                 $scope.closeNewAppointmentModal();
             }
         }

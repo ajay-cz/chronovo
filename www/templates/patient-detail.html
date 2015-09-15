@@ -1,19 +1,10 @@
 <ion-view title="{{patientInfo.first_name}} {{patientInfo.last_name}}"
           view-title="{{patientInfo.first_name}} {{patientInfo.last_name}}">
-    <!--<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">-->
-    <!--<div class="tabs">-->
-    <!--<a class="tab-item active" href="#"> Personal Info</a>-->
-    <!--<a class="tab-item" href="#">Visit History</a>-->
-    <!--</div>-->
-    <!--<div>-->
-
-    <!--</div>-->
-    <!--</div>-->
-    <!--<ion-content class="padding">-->
         <ion-tabs class="tabs-striped tabs-icon-top tabs-background-stable">
             <ion-tab title="Patient Info" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
                 <ion-pane>
-                    <ion-content padding="true" scroll="false" class="has-header">
+                    <ion-content padding="true" scroll="true" class="has-header">
+                        <form name="patientForm" ng-submit="inlinePatientInfoSave(patientInfo)">
                         <div class="card">
                             <div class="item item-text-wrap">
                                 <label class="item item-input">
@@ -51,6 +42,8 @@
                                 </label>
                             </div>
                         </div>
+                            <button type="submit" class="button icon-right ion-checkmark-circled" ng-click="inlinePatientInfoSave(patientInfo)" ng-disabled="patientForm.$invalid"> Save</button>
+                        </form>
                     </ion-content>
                 </ion-pane>
                 <!-- Tab 1 content -->

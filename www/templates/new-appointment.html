@@ -17,9 +17,9 @@
                     <div>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Patient</span>
-                            <select ng-model="appointment.patient" placeholder="Enter Patient Name" ng-required="true">
+                            <select ng-model="appointment.patientId" placeholder="Enter Patient Name" ng-required="true">
                                 <option value="">Enter Patient Name</option>
-                                <option ng-repeat="patient in patients" value="{{patient}}">{{patient.first_name}} {{patient.last_name}}</option>
+                                <option ng-repeat="patient in patients" value="{{patient.id}}">{{patient.first_name}} {{patient.last_name}}</option>
                             </select>
                             <!--<button class="button button-icon" ng-click="showNewPatientModal()">-->
                                 <!--<i class="icon ion-plus"></i>-->
