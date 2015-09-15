@@ -1,5 +1,28 @@
 <ion-view title="Chronovo" view-title="Chronovo">
     <ion-tabs class="tabs-stable tabs-icon-top">
+        <ion-tab title="Patients" icon="ion-person">
+            <ion-pane>
+                <ion-content padding="true" scroll="false" class="has-header">
+                    <form>
+                        <div class="row">
+                            <button class="button button-icon" ng-click="showNewPatientModal()">
+                                <i class="icon ion-plus"></i>
+                            </button>
+                            <label class="row item item-input item-floating-label" name="patients_filter">
+                                <span class="input-label">Type to Filter ...</span>
+                                <input type="text" placeholder="Type to Filter ...">
+                            </label>
+                        </div>
+                    </form>
+                    <ion-list>
+                        <ion-item ng-repeat="patient in patients" class="card" href="#/app/patientinfo/{{patient.id}}">
+                            <h2>{{patient.first_name}} {{patient.last_name}}</h2>
+                            <span>SINCE {{patient.joined_on | date: 'dd/MM/yyyy'}}</span>
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-pane>
+        </ion-tab>
         <ion-tab title="Appointments" icon="ion-ios7-calendar">
             <ion-pane>
                 <ion-content padding="true" scroll="true" class="has-header">
@@ -35,29 +58,6 @@
                             </ion-item>
                         </ion-list>
                     </form>
-                </ion-content>
-            </ion-pane>
-        </ion-tab>
-        <ion-tab title="Patients" icon="ion-person">
-            <ion-pane>
-                <ion-content padding="true" scroll="false" class="has-header">
-                    <form>
-                        <div class="row">
-                            <button class="button button-icon" ng-click="showNewPatientModal()">
-                                <i class="icon ion-plus"></i>
-                            </button>
-                            <label class="row item item-input item-floating-label" name="patients_filter">
-                                <span class="input-label">Type to Filter ...</span>
-                                <input type="text" placeholder="Type to Filter ...">
-                            </label>
-                        </div>
-                    </form>
-                    <ion-list>
-                        <ion-item ng-repeat="patient in patients" class="card" href="#/app/patientinfo/{{patient.id}}">
-                            <h2>{{patient.first_name}} {{patient.last_name}}</h2>
-                            <span>SINCE {{patient.joined_on | date: 'dd/MM/yyyy'}}</span>
-                        </ion-item>
-                    </ion-list>
                 </ion-content>
             </ion-pane>
         </ion-tab>
