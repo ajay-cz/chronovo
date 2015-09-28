@@ -15,9 +15,14 @@
                         </div>
                     </form>
                     <ion-list>
-                        <ion-item ng-repeat="patient in patients" class="card" href="#/app/patientinfo/{{patient.id}}">
-                            <h2>{{patient.first_name}} {{patient.last_name}}</h2>
-                            <span>SINCE {{patient.joined_on | date: 'dd/MM/yyyy'}}</span>
+                        <ion-item ng-repeat="patient in patients" class="card item-button-right">
+                            <a class="item-content" ng-href="#/app/patientinfo/{{patient.id}}" href="#/app/patientinfo/{{patient.id}}">
+                                <h2>{{patient.first_name}} {{patient.last_name}}</h2>
+                                <span class="col col-offset-5">SINCE {{patient.joined_on | date: 'dd/MM/yyyy'}}</span>
+                            </a>
+                            <button class="button button-stable" ng-click="showNewAppointmentModal(patient.id)">
+                                <i class="icon ion-ios7-calendar"></i>
+                            </button>
                         </ion-item>
                     </ion-list>
                 </ion-content>
@@ -47,13 +52,33 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="spacer" style="width: 0px; height: 20px;"></div>
+                        <div class="spacer" style="width: 0px; height: 10px;"></div>
+                        <div class="row">
+                            <div class="buttons col-offset-25">
+                                <button class="button button-stable" ng-click="sendReminderEmail(app.id)">
+                                    <i class="icon ion-ios-email-outline"></i> e-Mail
+                                </button>
+                                <button class="button button-stable" ng-click="sendReminderSMS(app.id)">
+                                    <i class="icon ion-ios-bell-outline"></i> SMS
+                                </button>
+                            </div>
+                        </div>
                         <ion-list>
-                            <ion-item ng-repeat="app in appointments" class="list card" href="#/app/appointment/{{app.id}}">
+                            <ion-item ng-repeat="app in appointments" class="list card">
                                 <div class="item item-divider"> {{ app.date| date: 'MM/dd/yyyy'}}</div>
-                                <div class="item item-avatar">
-                                    <h2>{{ patientInfoMap[app.patientId]['first_name'] }} <span ng-show="app.purpose != null">({{ app.purpose }})</span></h2>
-                                    <p>{{ app.category }}</p>
+                                <div class="item item-button-right">
+                                    <a class="item-content" ng-href="#/app/appointment/{{app.id}}" href="#/app/appointment/{{app.id}}">
+                                            <h2>{{ patientInfoMap[app.patientId]['first_name'] }} <span ng-show="app.purpose != null">({{ app.purpose }})</span></h2>
+                                            <p>{{ app.category }}</p>
+                                    </a>
+                                    <div class="buttons">
+                                        <button class="button button-stable" ng-click="sendReminderEmail(app.id)">
+                                            <i class="icon ion-ios-email-outline"></i> e-Mail
+                                        </button>
+                                        <button class="button button-stable" ng-click="sendReminderSMS(app.id)">
+                                            <i class="icon ion-ios-bell-outline"></i> SMS
+                                        </button>
+                                    </div>
                                 </div>
                             </ion-item>
                         </ion-list>

@@ -9,6 +9,16 @@
                     <div>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Visit Date</span>
+                            <!--<button class="button button-stable">-->
+                                <!--Today-->
+                            <!--</button>-->
+                            <!--<button class="button button-stable">-->
+                                <!--Tomorrow-->
+                            <!--</button>-->
+                            <!--<ionic-datepicker input-obj="datepickerObjectModal">-->
+                                <!--<button class="button button-positive"> {{datepickerObjectModal.inputDate | date:'dd - MMMM - yyyy'}}</button>-->
+                            <!--</ionic-datepicker>-->
+                            <!--<my-date-time-picker placeholder="Enter Date here" title="Select Date" ng-model="my_model"></my-date-time-picker>-->
                             <input type="date" placeholder="{{today| date: 'MM/dd/yyyy' }}" ng-model="appointment.date" ng-required="true">
                         </label>
                     </div>
@@ -34,6 +44,7 @@
                     <div>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Purpose</span>
+                            <!--<div ng-dropdown-multiselect="" options="appointment.purpose" checkboxes="true" selected-model="appointment.purpose" extra-settings="example2settings"></div>-->
                             <input type="text" placeholder="E.g. Regular check up" ng-model="appointment.purpose" ng-required="true">
                         </label>
                     </div>

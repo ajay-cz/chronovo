@@ -52,14 +52,15 @@ angular.module('starter.factories', [])
             save: function (patients) {
                 window.localStorage['patients'] = angular.toJson(patients);
             },
-            newPatient: function (uuid, first_name, last_name, phone, joining_date) {
+            newPatient: function (uuid, first_name, last_name, phone, email, joining_date) {
                 // Add a new patient
                 return {
                     id: uuid,
                     first_name: first_name,
                     last_name: last_name,
                     phone: phone,
-                    joined_on: joining_date
+                    joined_on: joining_date,
+                    email: email
                 };
             },
             getPatientInfo: function (id) {
@@ -80,6 +81,63 @@ angular.module('starter.factories', [])
             },
             setLastActiveIndex: function (index) {
                 window.localStorage['lastActivePatient'] = index;
+            }
+        }
+    })
+
+    .factory('LaboratoryFactory', function () {
+        return {
+            all: function () {
+                var projectString = window.localStorage['labs'];
+                if (projectString) {
+                    return angular.fromJson(projectString);
+                }
+                return [{
+                    'test': 'Lipid',
+                    'charges': 200
+                    },
+                    {
+                        'test': 'Test2',
+                        'charges': 200
+                    },
+                    {
+                        'test': 'Test3',
+                        'charges': 300
+                    },
+                ];
+            },
+            save: function (labs) {
+                window.localStorage['labs'] = angular.toJson(labs);
+            },
+            newLab: function (uuid, first_name, last_name, phone, email, joining_date) {
+                // Add a new Lab
+                return {
+                    id: uuid,
+                    first_name: first_name,
+                    last_name: last_name,
+                    phone: phone,
+                    joined_on: joining_date,
+                    email: email
+                };
+            },
+            getLabInfo: function (id) {
+                var labs = this.all();
+                var keepGoing = true;
+                angular.forEach(labs, function (value, key) {
+                    if (keepGoing) {
+                        if (value.id.toString() === id) {
+                            console.log(value);
+                            keepGoing = false;
+                            return value;
+                        }
+                    }
+                })
+            },
+            getLastActiveIndex: function () {
+                return parseInt(window.localStorage['lastActiveLab']) || 0;
+            },
+            setLastActiveIndex: function (index) {
+                window.localStorage['lastActiveLab'] = index;
             }
         }
     })

@@ -48,15 +48,15 @@
             </ion-pane>
             <!-- Tab 1 content -->
         </ion-tab>
-        <ion-tab title="Clinical Notes" icon-on="ion-ios-list" icon-off="ion-ios-list-outline">
+        <ion-tab title="Lab Info" icon-on="ion-ios-list" icon-off="ion-ios-list-outline">
             <ion-pane>
                 <ion-content padding="true" scroll="true" class="has-header">
                     <form name="apptCNoteForm" ng-submit="inlineAppointmnetInfoSave(appointmentInfo)">
                         <div class="card">
                             <div class="item item-text-wrap">
                                 <label class="item item-input">
-                                    <span class="input-label">Clinical Notes</span>
-                                    <textarea type="text" placeholder="Clinical Notes" ng-model="appointmentInfo.clinical_notes">
+                                    <span class="input-label">Lab Info</span>
+                                    <textarea type="text" placeholder="Lab Info" ng-model="appointmentInfo.clinical_notes">
                                     </textarea>
                                 </label>
                             </div>

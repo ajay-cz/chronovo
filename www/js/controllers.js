@@ -2,7 +2,7 @@
  * Created by Ajaykumar on 8/31/2015.
  */
 
-angular.module('starter.controllers', ['ionic.utils'])
+angular.module('starter.controllers', ['ionic.utils', 'angularjs-dropdown-multiselect'])
 
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
         $scope.about = true;
@@ -73,6 +73,7 @@ angular.module('starter.controllers', ['ionic.utils'])
         generatePatientInfoMap();
         var pkeepGoing = true;
 
+        // Finds the Patient Info From Patient ID
         var findPatientInfoFromId = function(patientId) {
             angular.forEach(PatientsFactory.all(), function (value, key) {
                 if (pkeepGoing) {
@@ -114,7 +115,7 @@ angular.module('starter.controllers', ['ionic.utils'])
         }
     })
 
-    .controller('HomeCtrl', function ($scope, $state, $ionicModal, $timeout, uuid2, AppointmentsFactory, PatientsFactory) {
+    .controller('HomeCtrl', function ($scope, $state, $ionicModal, $timeout, uuid2, AppointmentsFactory, PatientsFactory, LaboratoryFactory) {
         // Appointments
 
         // All Saved appointments
@@ -128,9 +129,17 @@ angular.module('starter.controllers', ['ionic.utils'])
         }
         generatePatientInfoMap();
 
-        $scope.chooseApp = function(app) {
-
-        }
+        $scope.labTests = [];
+        $scope.labTestsCharges = [];
+//        var generateLabTestsList = function() {
+//            angular.forEach(LaboratoryFactory.all(), function(value, key){
+//                console.log(key)
+//                console.log(value)
+//                $scope.labTests.push(value['test']);
+//                $scope.labTestsCharges.push(value['charges']);
+//            })
+//        }
+//        generateLabTestsList();
 
         $scope.today = new Date();
         $scope.timeNow = new Date().getTime();
@@ -142,11 +151,35 @@ angular.module('starter.controllers', ['ionic.utils'])
         }).then(function(modal) {
             $scope.appointmentModal = modal;
             $scope.appointment = {};
+            $scope.appointment['purpose'] = [];
+            $scope.labTests = LaboratoryFactory.all();
+            console.log($scope.labTests);
+            $scope.example2settings =  {
+                displayProp: 'test',
+                showCheckAll: false,
+                showUncheckAll: false,
+                buttonClasses: 'button button-stable',
+                scrollable: true
+            };
         });
         //Show New appointment Modal
-        $scope.showNewAppointmentModal = function() {
+        $scope.showNewAppointmentModal = function(patient_id) {
+            if (patient_id !== null || patient_id !== undefined) {
+                $scope.appointment['patientId'] = patient_id;
+            }
             $scope.appointmentModal.show();
         };
+
+        // Send Email
+        $scope.sendReminderEmail = function(appointmentId) {
+            alert('Email Sent');
+        }
+
+        // Send SMS
+        $scope.sendReminderSMS = function(appointmentId) {
+            alert('SMS Sent');
+        }
+
         //Hide New appointment Modal
         $scope.closeNewAppointmentModal = function() {
             $scope.appointmentModal.hide();
@@ -205,8 +238,8 @@ angular.module('starter.controllers', ['ionic.utils'])
             $scope.patientModal.hide();
         }
 
-        var createPatient = function(firstName, lastName, phone) {
-            var newPatient = PatientsFactory.newPatient(uuid2.newguid(), firstName, lastName, phone, new Date());
+        var createPatient = function(firstName, lastName, phone, email) {
+            var newPatient = PatientsFactory.newPatient(uuid2.newguid(), firstName, lastName, phone, email, new Date());
             $scope.patients.push(newPatient);
             PatientsFactory.save($scope.patients);
 //            $scope.selectPatient(newPatient, $scope.Patients.length-1);
@@ -214,7 +247,7 @@ angular.module('starter.controllers', ['ionic.utils'])
         //Save New Patient and close Modal
         $scope.saveNewPatient = function(patient) {
             if (patient) {
-                createPatient(patient.firstName, patient.lastName, patient.phone);
+                createPatient(patient.firstName, patient.lastName, patient.phone, patient.email);
                 $scope.closeNewPatientModal();
             }
         }
