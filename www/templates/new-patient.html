@@ -1,4 +1,6 @@
-<ion-modal-view style="width: 90%; height: 90%; top: 5%; left: 5%; right: 5%; bottom: 5%;">
+<!--<ion-modal-view style="width: 90%; height: 90%; top: 5%; left: 5%; right: 5%; bottom: 5%;">-->
+<ion-view title="New Patient"
+          view-title="New Patient Registration">
     <ion-header-bar class="bar bar-header bar-positive">
         <h1 class="title">New Patient</h1>
     </ion-header-bar>
@@ -39,13 +41,16 @@
                 </div>
             </div>
             <div class="item padding">
-                <button class="button icon-right ion-close-circled" ng-click="closeNewPatientModal()"> Cancel
-                </button>
+                <!--<button class="button icon-right ion-close-circled" ng-click="closeNewPatientView()"> Cancel-->
+                <!--</button>-->
+                <a class="button icon-right ion-close-circled" nav-direction="back" ng-href="#/app/home" href="#/app/home/"> Cancel
+                </a>
                 <button type="submit" class="button icon-right ion-checkmark-circled"
                         ng-click="saveNewPatient(patient)" ng-disabled="patientForm.$invalid"> Save
                 </button>
             </div>
         </form>
-        <ion-content>
+    </ion-content>
 
-</ion-modal-view>
+<!--</ion-modal-view>-->
+</ion-view>

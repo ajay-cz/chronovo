@@ -1,6 +1,8 @@
-<ion-modal-view style="width: 90%; height: 90%; top: 5%; left: 5%; right: 5%; bottom: 5%;">
+<!--<ion-modal-view style="width: 90%; height: 90%; top: 5%; left: 5%; right: 5%; bottom: 5%;">-->
+<ion-view title="New Appointment"
+          view-title="New Appointment">
     <ion-header-bar class="bar bar-header bar-positive">
-        <h1 class="title">New Appointment</h1>
+        <h1 class="title">New </h1>
     </ion-header-bar>
     <ion-content>
         <form name="apptform">
@@ -27,9 +29,9 @@
                     <div>
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Patient</span>
-                            <select ng-model="appointment.patientId" placeholder="Enter Patient Name" ng-required="true">
+                            <select ng-model="appointment.patientId" placeholder="Enter Patient Name" ng-required="true" ng-options="patient.id as patient.first_name for patient in patients">
                                 <option value="">Enter Patient Name</option>
-                                <option ng-repeat="patient in patients" value="{{patient.id}}">{{patient.first_name}} {{patient.last_name}}</option>
+                                <!--<option ng-repeat="patient in patients" value="{{patient.id}}">{{patient.first_name}} {{patient.last_name}}</option>-->
                             </select>
                             <!--<button class="button button-icon" ng-click="showNewPatientModal()">-->
                                 <!--<i class="icon ion-plus"></i>-->
@@ -45,7 +47,10 @@
                         <label class="item item-input item-stacked-label">
                             <span class="input-label">Purpose</span>
                             <!--<div ng-dropdown-multiselect="" options="appointment.purpose" checkboxes="true" selected-model="appointment.purpose" extra-settings="example2settings"></div>-->
-                            <input type="text" placeholder="E.g. Regular check up" ng-model="appointment.purpose" ng-required="true">
+                            <!--<input type="text" placeholder="E.g. Regular check up" ng-model="appointment.purpose" ng-required="true">-->
+                            <tags-input ng-model="appointment.purpose" add-on-paste="true" on-tag-added="onSelectPurpose()">
+                                <!--<auto-complete source="loadTags($query)"></auto-complete>-->
+                            </tags-input>
                         </label>
                     </div>
                 </div>
@@ -57,6 +62,14 @@
                         </label>
                     </div>
                 </div>
+                <div class="card">
+                    <div>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Bill</span>
+                            <label>{{$scope.billAmount}}</label>
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="item padding">
                 <button class="button icon-right ion-close-circled" ng-click="closeNewAppointmentModal()"> Cancel</button>
@@ -65,4 +78,4 @@
         </form>
     <ion-content>
 
-</ion-modal-view>
+<!--</ion-modal-view>-->

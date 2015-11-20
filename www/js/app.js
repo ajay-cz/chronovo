@@ -56,6 +56,28 @@ angular.module('app', ['ionic', 'starter.controllers', 'starter.services', 'star
                 }
             })
 
+//            .state('app.patients', {
+//                cache: false,
+//                url: '/patients-list',
+//                views: {
+//                    'menuContent': {
+//                        templateUrl: 'templates/patients-list.html',
+//                        controller: 'PatientCtrl'
+//                    }
+//                }
+//            })
+
+            .state('app.newpatient', {
+                cache: false,
+                url: '/new-patient',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/new-patient.html',
+                        controller: 'PatientCtrl'
+                    }
+                }
+            })
+
             .state('app.patientinfo', {
                 cache: false,
                 url: '/patientinfo/:patientId',
@@ -63,6 +85,17 @@ angular.module('app', ['ionic', 'starter.controllers', 'starter.services', 'star
                     'menuContent': {
                         templateUrl: 'templates/patient-detail.html',
                         controller: 'PatientCtrl'
+                    }
+                }
+            })
+
+            .state('app.newappointment', {
+                cache: false,
+                url: '/new-appointment/:patientId',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/new-appointment.html',
+                        controller: 'AppointmentDetailsCtrl'
                     }
                 }
             })
@@ -104,7 +137,7 @@ angular.module('app', ['ionic', 'starter.controllers', 'starter.services', 'star
             .state('contact', {
                 url: '/contact',
                 templateUrl: 'templates/contact.html'
-            })
+            });
 
 
         // if none of the above states are matched, use this as the fallback

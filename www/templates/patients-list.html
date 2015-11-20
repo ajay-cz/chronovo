@@ -1,0 +1,29 @@
+<ion-pane>
+    <ion-content padding="true" scroll="false" class="has-header">
+        <form>
+            <div class="row">
+                <!--<button class="button button-icon" ng-click="showNewPatientModal()">-->
+                <!--<i class="icon ion-plus"></i>-->
+                <!--</button>-->
+                <a class="button button-icon" ng-href="#/app/new-patient" href="#/app/new-patient/">
+                    <i class="icon ion-plus"></i>
+                </a>
+                <label class="row item item-input item-floating-label" name="patients_filter">
+                    <span class="input-label">Type to Filter ...</span>
+                    <input type="text" placeholder="Type to Filter ..." ng-model="searchText">
+                </label>
+            </div>
+        </form>
+        <ion-list>
+            <ion-item ng-repeat="patient in patients | filter:searchText" class="card item-button-right">
+                <a class="item-content" ng-href="#/app/patientinfo/{{patient.id}}" href="#/app/patientinfo/{{patient.id}}">
+                    <h2>{{patient.first_name}} {{patient.last_name}}</h2>
+                    <span class="col col-offset-5">SINCE {{patient.joined_on | date: 'dd/MM/yyyy'}}</span>
+                </a>
+                <button class="button button-stable" ng-click="showNewAppointmentModal(patient.id)">
+                    <i class="icon ion-ios7-calendar"></i>
+                </button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-pane>
